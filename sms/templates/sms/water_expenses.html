@@ -1,0 +1,67 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<div class="tile">
+<div class="tile-title">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>Expenses</h4>
+        </div>
+        <div class="col-sm-6">
+            <a href="{% url 'sms:water_manual_expenses' %}" class="btn btn-outline-primary pull-right">Add Expense</a>
+        </div>
+    </div>
+    <hr>
+</div>
+        <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <tr>
+                        <th>Expense Date</th>
+    
+                        <th>Category</th>
+                        <th>Amount</th>
+    
+                        <th>Accounted By</th>
+                        <th>Payment ID</th>
+                        <th>Comments</th>
+                        
+                        
+    
+                    </tr>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for payment in expenses %}
+                <tr>
+                    <td>{{ payment.pay_date|date:'Y:m:d' }}</td>
+                    <td><a href="{% url 'sms:water_expense_category' payment.category_id %}">{{ payment.category.category_name }}</a></td>
+
+                    <td>{{ payment.amount }}</td>
+                    <td>{{ payment.accounted_by.names }}</td>
+                    <td>{{ payment.payment_code }}</td>
+                    <td>{{ payment.comments }}</td>
+                       
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="tile">
+        <div class="tile-body">
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+        </div>
+
+            <form action="{% url 'sms:water_manual_expenses' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Expense Category</label> <br>
+                    <select name="cat_id" class="form-control" id="cat_id" style="width:300px" required>
+                        <option value="">Select Category</option>
+                        {% for client in categories %}
+                            <option value="{{ client.id }}">{{ client.category_name }} </option>
+                        {% endfor %}
+                    </select>
+
+                    
+
+                </div>
+                <div class="form-group">
+                    <label>Expense To</label> <br>
+                    <select name="meter" class="form-control" id="meter" style="width:300px" required>
+                        <option value="">Select Staff</option>
+                        {% for stf in staff %}
+                            <option value="{{ stf.id }}">{{ stf.names }} </option>
+                        {% endfor %}
+                    </select>
+
+                    
+
+                </div>
+
+
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input class="form-control" type="text" name="amount"   style="width:300px">
+                </div>
+                <div class="form-group">
+                    <label>Payment Code</label>
+                    <input class="form-control" type="text" name="ref_id"   style="width:300px">
+                </div>
+                <div class="form-group">
+                    <label>Comments</label>
+                    <input class="form-control" type="text" name="comment"  value="Cash Payment" style="width:300px">
+                </div>
+
+            <button type="submit" class="btn btn-sm btn-outline-primary">Add Expense</button>
+            </form>
+        </div>
+                <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <tr>
+                        <th>Expense Date</th>
+    
+                        <th>Category</th>
+                        <th>Amount</th>
+    
+                        <th>Accounted By</th>
+                        <th>Payment ID</th>
+                        <th>Comments</th>
+                        
+                        
+    
+                    </tr>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for payment in expenses %}
+                <tr>
+                    <td>{{ payment.pay_date|date:'Y:m:d' }}</td>
+                    <td><a href="{% url 'sms:water_expense_category' payment.category_id %}">{{ payment.category.category_name }}</a></td>
+
+                    <td>{{ payment.amount }}</td>
+                    <td>{{ payment.accounted_by.names }}</td>
+                    <td>{{ payment.payment_code }}</td>
+                    <td>{{ payment.comments }}</td>
+                       
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+$('#meter').select2();
+$('#customer').select2();
+</script>
+{% endblock %}
