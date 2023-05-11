@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['167.235.239.71','176.58.121.115','localhost','sba.roberms.com'
 
 
 # Application definition
+#allowed 
 
 INSTALLED_APPS = [
     'django.contrib.admin',
