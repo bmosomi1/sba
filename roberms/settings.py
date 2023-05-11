@@ -98,7 +98,7 @@ DATABASES = {
 DATABASES1 = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sba',
+        'NAME': 'sba_water',
         'USER': 'root',
         'HOST': '127.0.0.1',
         'PORT': '3306',
