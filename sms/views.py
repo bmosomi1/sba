@@ -3126,8 +3126,8 @@ def create_water_client(request):
         dear = "Dear "
         your = ", Your  account is "
         account_num = str(new_cn_int)
-        ensure = ". ensure that you put the paybill 4047479 and  account number "
-        paying = " when paying for water bill.  Help line 0712730611"
+        ensure = ". ensure that you put the paybill 751814 and  account number "
+        paying = " when paying for water bill.  Help line 0722322712"
         client_message = dear + client_name + your + account_num + ensure + account_num + paying
 
         WaterOutbox.objects.create(
