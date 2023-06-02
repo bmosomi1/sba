@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from requests.auth import HTTPBasicAuth
 from mpesa_api.models import Mpesa
+from .models import RobermsMpesa
 from sms.models import Group, Contact, TobentoTill, Customer
 
 import logging
@@ -150,14 +151,14 @@ def validation2(request):
 def confirmation2(request):
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
-    Mpesa.objects.create(
+    RobermsMpesa.objects.create(
         first_name=mpesa_payment['FirstName'],
         last_name=mpesa_payment['MiddleName'],
         description=mpesa_payment['TransID'],
         phone_number=mpesa_payment['MSISDN'],
         amount=mpesa_payment['TransAmount'],
         reference=mpesa_payment['BillRefNumber'],
-        email="admin@roberms.com",
+        email="roberms@roberms.com",
         type=mpesa_payment['TransactionType'],
         created_at=timezone.now(),
         organization_balance=mpesa_payment['OrgAccountBalance']
