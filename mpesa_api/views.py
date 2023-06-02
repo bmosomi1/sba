@@ -149,7 +149,7 @@ def validation2(request):
 from django.core.files import File
 @csrf_exempt
 
-def confirmation2(request):
+def confirmation2(self, request):
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
     f_name=mpesa_payment['FirstName']
