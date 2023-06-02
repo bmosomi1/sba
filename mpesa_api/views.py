@@ -152,9 +152,10 @@ from django.core.files import File
 def confirmation2(request):
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
+    f_name=mpesa_payment['FirstName']
     f = open('/var/log/thiss_err.log', 'w')
     testfile = File(f)
-    testfile.write(mpesa_payment)
+    testfile.write(f_name)
     testfile.close
     f.close
     RobermsMpesa.objects.create(
