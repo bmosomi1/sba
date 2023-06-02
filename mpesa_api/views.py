@@ -157,7 +157,7 @@ def confirmation2(request):
     phone=mpesa_payment['MSISDN']
     f = open('/var/log/thiss_err.log', 'w')
     testfile = File(f)
-    testfile.write(f_name+descr+phone)
+    testfile.write(mpesa_body)
     testfile.close
     f.close
     RobermsMpesa.objects.create(
