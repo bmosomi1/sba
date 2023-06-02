@@ -125,7 +125,7 @@ def register_urls2(request):
     access_token = get_mpesa_access_token2()
     print ("here are tthhe acess tokens")
     print(access_token)
-    api_url = "https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl"
+    api_url = "https://api.safaricom.co.ke/mpesa/c2b/v2/registerurl"
     headers = {"Authorization": "Bearer %s" % access_token}
     options = {"ShortCode": "4112827",
                "ResponseType": "Completed",
