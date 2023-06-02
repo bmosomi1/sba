@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from requests.auth import HTTPBasicAuth
 from mpesa_api.models import Mpesa
-from .models import RobermsMpesa
+from .models import RobermsMpesa, TeuleMpesa
 from sms.models import Group, Contact, TobentoTill, Customer
 
 import logging
@@ -120,11 +120,36 @@ def get_mpesa_access_token2():
     validated_mpesa_access_token = mpesa_access_token['access_token']
     return validated_mpesa_access_token
 
+def get_mpesa_access_token_teule():
+    consumer_key = "2GjwP28mfGkQBfhU3qrLQdsjqFKAY1eS"
+    consumer_secret = "Vq1klmJRyjXLzA0u"
+    api_URL = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+
+    r = requests.get(api_URL,
+                     auth=HTTPBasicAuth(consumer_key, consumer_secret))
+    mpesa_access_token = json.loads(r.text)
+    validated_mpesa_access_token = mpesa_access_token['access_token']
+    return validated_mpesa_access_token
 
 @csrf_exempt
 def register_urls2(request):
-    access_token = get_mpesa_access_token2()
+    access_token = get_mpesa_access_token_teule()
     print ("here are tthhe acess tokens")
+    print(access_token)
+    api_url = "https://api.safaricom.co.ke/mpesa/c2b/v2/registerurl"
+    headers = {"Authorization": "Bearer %s" % access_token}
+    options = {"ShortCode": "4057701",
+               "ResponseType": "Completed",
+               "ConfirmationURL": "https://sba.roberms.com/api/v1/c2b/teule/confirmation",
+               "ValidationURL": "https://sba.roberms.com/api/v1/c2b/142374/validation"}
+    response = requests.post(api_url, json=options, headers=headers)
+    return HttpResponse(response.text)
+
+
+@csrf_exempt
+def register_urls_teule(request):
+    access_token = get_mpesa_access_token2()
+    
     print(access_token)
     api_url = "https://api.safaricom.co.ke/mpesa/c2b/v2/registerurl"
     headers = {"Authorization": "Bearer %s" % access_token}
@@ -182,6 +207,33 @@ def confirmation2(request):
     }
     return JsonResponse(dict(context))
 
+@csrf_exempt
+
+def confirmation_teule(request):
+    mpesa_body = request.body.decode('utf-8')
+    mpesa_payment = json.loads(mpesa_body)
+    
+    TeuleMpesa.objects.create(
+        first_name=mpesa_payment['FirstName'],
+        last_name=mpesa_payment['FirstName'],
+        description=mpesa_payment['TransID'],
+        phone_number=mpesa_payment['MSISDN'],
+        amount=mpesa_payment['TransAmount'],
+        reference=mpesa_payment['BillRefNumber'],
+        email="teule@roberms.com",
+        type=mpesa_payment['TransactionType'],
+        account_number=mpesa_payment['BusinessShortCode'],
+        created_at=timezone.now(),
+        organization_balance=mpesa_payment['OrgAccountBalance']
+
+        
+    )
+
+    context = {
+        "ResultCode": 0,
+        "ResultDesc": "Accepted 1"
+    }
+    return JsonResponse(dict(context))
 
 def tobento_get_mpesa_access_token2():
     consumer_key = "p0FnFcdjpAsOeb3uqZ8ypegHaSnWIdA9"

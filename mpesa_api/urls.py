@@ -7,8 +7,8 @@ urlpatterns = [
     path('c2b/confirmation', views.confirmation, name="confirmation"),
     path('c2b/validation', views.validation, name="validation"),
 
-    path('c2b/142374/register', views.register_urls2, name="register_mpesa_validation"),
-    path('c2b/142374/confirmation', views.confirmation2, name="confirmation"),
+    path('c2b/teule/register', views.register_urls_teule, name="register_urls_teule"),
+    path('c2b/teule/confirmation', views.confirmation_teule, name="confirmation_teule"),
     path('c2b/142374/validation', views.validation2, name="validation"),
 
     # tobento
