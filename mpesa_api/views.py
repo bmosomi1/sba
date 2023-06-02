@@ -109,8 +109,8 @@ def confirmation(request):
 
 
 def get_mpesa_access_token2():
-    consumer_key = "Ot2bzA3OLDjIBUdAnNAFljOG7pgVc6oc"
-    consumer_secret = "sm15v3H7Bu4axchA"
+    consumer_key = "LfVqGr8L714Tc9d6xW4Cf3R2OqigcVy7"
+    consumer_secret = "MJmQvcH1GjTyALsW"
     api_URL = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
 
     r = requests.get(api_URL,
@@ -126,10 +126,10 @@ def register_urls2(request):
     print(access_token)
     api_url = "https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl"
     headers = {"Authorization": "Bearer %s" % access_token}
-    options = {"ShortCode": "140583",
+    options = {"ShortCode": "4112827",
                "ResponseType": "Completed",
-               "ConfirmationURL": "https://roberms.co.ke/api/v1/c2b/142374/confirmation",
-               "ValidationURL": "https://roberms.co.ke/api/v1/c2b/142374/validation"}
+               "ConfirmationURL": "https://sba.roberms.com/api/v1/c2b/142374/confirmation",
+               "ValidationURL": "https://sba.roberms.com/api/v1/c2b/142374/validation"}
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)
 
