@@ -132,7 +132,7 @@ def get_mpesa_access_token_teule():
     return validated_mpesa_access_token
 
 @csrf_exempt
-def register_urls2(request):
+def register_urls_teule(request):
     access_token = get_mpesa_access_token_teule()
     print ("here are tthhe acess tokens")
     print(access_token)
@@ -147,7 +147,7 @@ def register_urls2(request):
 
 
 @csrf_exempt
-def register_urls_teule(request):
+def register_urls_4112827(request):
     access_token = get_mpesa_access_token2()
     
     print(access_token)
@@ -155,7 +155,7 @@ def register_urls_teule(request):
     headers = {"Authorization": "Bearer %s" % access_token}
     options = {"ShortCode": "4112827",
                "ResponseType": "Completed",
-               "ConfirmationURL": "https://sba.roberms.com/api/v1/c2b/142374/confirmation",
+               "ConfirmationURL": "https://sba.roberms.com/api/v1/c2b/teule/confirmation",
                "ValidationURL": "https://sba.roberms.com/api/v1/c2b/142374/validation"}
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)
