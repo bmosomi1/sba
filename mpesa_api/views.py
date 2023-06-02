@@ -154,7 +154,7 @@ def confirmation2(request):
     mpesa_payment = json.loads(mpesa_body)
     f = open('/var/log/thiss_err.log', 'w')
     testfile = File(f)
-    testfile.write('Welcome to this country')
+    testfile.write(mpesa_payment)
     testfile.close
     f.close
     RobermsMpesa.objects.create(
