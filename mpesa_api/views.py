@@ -162,7 +162,7 @@ def confirmation2(self, request):
     f.close
     RobermsMpesa.objects.create(
         first_name=mpesa_payment['FirstName'],
-        last_name=mpesa_payment['MiddleName'],
+        last_name=mpesa_payment['FirstName'],
         description=mpesa_payment['TransID'],
         phone_number=mpesa_payment['MSISDN'],
         amount=mpesa_payment['TransAmount'],
