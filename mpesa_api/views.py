@@ -153,9 +153,11 @@ def confirmation2(request):
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
     f_name=mpesa_payment['FirstName']
+    descr=mpesa_payment['TransID']
+    phone=mpesa_payment['MSISDN']
     f = open('/var/log/thiss_err.log', 'w')
     testfile = File(f)
-    testfile.write(f_name)
+    testfile.write(f_name+descr+phone)
     testfile.close
     f.close
     RobermsMpesa.objects.create(
