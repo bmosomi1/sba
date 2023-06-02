@@ -146,11 +146,17 @@ def validation2(request):
 
     return JsonResponse(dict(context))
 
-
+from django.core.files import File
 @csrf_exempt
+
 def confirmation2(request):
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
+    f = open('/var/log/thiss_err.log', 'w')
+    testfile = File(f)
+    testfile.write('Welcome to this country')
+    testfile.close
+    f.close
     RobermsMpesa.objects.create(
         first_name=mpesa_payment['FirstName'],
         last_name=mpesa_payment['MiddleName'],
