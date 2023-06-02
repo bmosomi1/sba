@@ -160,13 +160,16 @@ def confirmation2(request):
         reference=mpesa_payment['BillRefNumber'],
         email="roberms@roberms.com",
         type=mpesa_payment['TransactionType'],
+        account_number=mpesa_payment['BusinessShortCode'],
         created_at=timezone.now(),
         organization_balance=mpesa_payment['OrgAccountBalance']
+
+        
     )
 
     context = {
         "ResultCode": 0,
-        "ResultDesc": "Accepted"
+        "ResultDesc": "Accepted 1"
     }
     return JsonResponse(dict(context))
 
