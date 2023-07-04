@@ -27,7 +27,7 @@ def mpesa_express(request):
     cl = MpesaClient()
     # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
     phone_number = '0724648426'
-    amount = 1
+    amount = 10
     account_reference = 'reference'
     transaction_desc = 'Description'
     callback_url = 'https://endpint.roberms.com/roberms/mpesa_express/'
