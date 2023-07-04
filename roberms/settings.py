@@ -95,6 +95,7 @@ INSTALLED_APPS = [
     'admin_honeypot',
     'shortcode',
     'adda',
+    'django_daraja',
     'water'
 ]
 
