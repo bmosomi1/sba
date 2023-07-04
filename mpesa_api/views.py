@@ -8,7 +8,7 @@ from requests.auth import HTTPBasicAuth
 from mpesa_api.models import Mpesa
 from .models import RobermsMpesa, TeuleMpesa
 from sms.models import Group, Contact, TobentoTill, Customer
-
+from django_daraja.mpesa.core import MpesaClient
 import logging
 
 logging.basicConfig(filename="test.log", level=logging.DEBUG)
@@ -21,6 +21,18 @@ def get_mpesa_access_token():
     mpesa_access_token = json.loads(r.text)
     validated_mpesa_access_token = mpesa_access_token['access_token']
     return validated_mpesa_access_token
+
+
+def mpesa_express(request):
+    cl = MpesaClient()
+    # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+    phone_number = '0724648426'
+    amount = 1
+    account_reference = 'reference'
+    transaction_desc = 'Description'
+    callback_url = 'https://endpint.roberms.com/roberms/mpesa_express/'
+    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return HttpResponse(response)
 
 
 @csrf_exempt
