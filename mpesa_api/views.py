@@ -8,7 +8,9 @@ from requests.auth import HTTPBasicAuth
 from mpesa_api.models import Mpesa
 from .models import RobermsMpesa, TeuleMpesa
 from sms.models import Group, Contact, TobentoTill, Customer
+from rest_framework.response import Response
 from django_daraja.mpesa.core import MpesaClient
+from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_400_BAD_REQUEST
 import logging
 
 logging.basicConfig(filename="test.log", level=logging.DEBUG)
@@ -33,6 +35,40 @@ def mpesa_express(request):
     callback_url = 'https://endpint.roberms.com/roberms/mpesa_express/'
     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
     return HttpResponse(response)
+
+def express_push(request):
+    phone = request.data.get("phone_number")
+    amount = request.data.get("amount")
+    if phone is None or amount is None:
+        return Response({'error': 'Please provide both phone number and Amount'}, status=HTTP_400_BAD_REQUEST)
+    
+
+    cl = MpesaClient()
+    # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+    phone_number = phone
+    amount = amount
+    account_reference = 'rent'
+    transaction_desc = 'Description'
+    callback_url = 'https://endpint.roberms.com/roberms/mpesa_express/'
+    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return HttpResponse(response)
+
+
+
+    
+
+    if not user:
+        context = {
+            'error': 'Invalid Credentials',
+        }
+        return Response(context, status=HTTP_404_NOT_FOUND)
+    token, _ = Token.objects.get_or_create(user=user)
+
+    context = {
+        'token': token.key,
+    }
+    return Response(context, status=HTTP_200_OK)
+
 
 
 @csrf_exempt

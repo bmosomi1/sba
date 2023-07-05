@@ -9,6 +9,7 @@ urlpatterns = [
 
     #mpesa express
     path('mpesa_express', views.mpesa_express, name="mpesa_express"),
+    path('express/push', views.express_push, name='express_push'),
 
     path('c2b/teule/register', views.register_urls_teule, name="register_urls_teule"),
     path('c2b/teule/confirmation', views.confirmation_teule, name="confirmation_teule"),
