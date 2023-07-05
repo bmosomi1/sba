@@ -37,8 +37,8 @@ def mpesa_express(request):
     return HttpResponse(response)
 
 def express_push(request):
-    phone = request.data.get("phone_number")
-    amount = request.data.get("amount")
+    phone = request.get("phone_number")
+    amount = request.get("amount")
     if phone is None or amount is None:
         return Response({'error': 'Please provide both phone number and Amount'}, status=HTTP_400_BAD_REQUEST)
     
