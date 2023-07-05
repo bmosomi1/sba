@@ -9,9 +9,13 @@ from mpesa_api.models import Mpesa
 from .models import RobermsMpesa, TeuleMpesa
 from sms.models import Group, Contact, TobentoTill, Customer
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 from django_daraja.mpesa.core import MpesaClient
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_400_BAD_REQUEST
 import logging
+
+
+
 
 logging.basicConfig(filename="test.log", level=logging.DEBUG)
 
@@ -35,10 +39,12 @@ def mpesa_express(request):
     callback_url = 'https://endpint.roberms.com/roberms/mpesa_express/'
     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
     return HttpResponse(response)
-
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
 def express_push(request):
-    phone = request.POST.get("phone_number")
-    amount = request.POST.get("amount")
+    phone = request.data.get("phone_number")
+    amount = request.data.get("amount")
     if phone is None or amount is None:
         return Response({'error': 'Please provide both phone number and Amount'}, status=HTTP_400_BAD_REQUEST)
     
