@@ -46,15 +46,16 @@ def mpesa_express(request):
 def express_push(request):
     phone = request.data.get("phone_number")
     amount = request.data.get("amount")
-    if phone is None or amount is None:
-        return Response({'error': 'Please provide both phone number and Amount'}, status=HTTP_400_BAD_REQUEST)
+    account = request.data.get("account")
+    if phone is None or amount is None or account is None:
+        return Response({'error': 'Please provide both phone number,account and Amount'}, status=HTTP_400_BAD_REQUEST)
     
 
     cl = MpesaClient()
     # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
     phone_number = phone
     amount = amount
-    account_reference = 'rent'
+    account_reference = account
     transaction_desc = 'Description'
     callback_url = 'https://endpint.roberms.com/roberms/mpesa_express/'
     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
