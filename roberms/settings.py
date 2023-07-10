@@ -59,7 +59,7 @@ MPESA_INITIATOR_USERNAME = 'BARONGO'
 
 # Plaintext password for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
 
-MPESA_INITIATOR_SECURITY_CREDENTIAL = 'initiator_security_credential'
+MPESA_INITIATOR_SECURITY_CREDENTIAL = 'Mosomi123'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 

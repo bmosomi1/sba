@@ -78,6 +78,15 @@ def express_push(request):
     return Response(context, status=HTTP_200_OK)
 
 
+def roberms_payments(request):
+        cl = MpesaClient()
+        phone_number = '0724648426'
+        amount = 1
+        transaction_desc = 'Business Payment Description'
+        occassion = 'Test business payment occassion'
+        callback_url = 'https://api.darajambili.com/b2c/result'
+        response = cl.business_payment(phone_number, amount, transaction_desc, callback_url, occassion)
+        return HttpResponse(response)
 
 @csrf_exempt
 def register_urls(request):
