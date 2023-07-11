@@ -55,7 +55,7 @@ MPESA_PASSKEY = 'c042b4113c8c7983ebbfdb0d6ad28a675fd61dc16787db0622c691fec1781f2
 
 # Username for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
 
-MPESA_INITIATOR_USERNAME = 'BARONGO'
+MPESA_INITIATOR_USERNAME = 'APISENDER'
 
 # Plaintext password for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
 
